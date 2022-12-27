@@ -1,0 +1,34 @@
+{
+    "Menu": [
+        {
+            "key": "1",
+            "name": "Home",
+            "icon": "fa fa-home",
+            "path": "/dashboard"
+        },
+        {
+            "key": "2",
+            "name": "Send Message",
+            "icon": "Icon",
+            "path": "/send-message"
+        },
+        {
+            "key": "3",
+            "name": "Contacts",
+            "icon": "Icon",
+            "path": "/contacts"
+        },
+        {
+            "key": "4",
+            "name": "Sent Messages",
+            "icon": "Icon",
+            "path": "/messages/sent"
+        },
+        {
+            "key": "5",
+            "name": "Content",
+            "icon": "Icon",
+            "path": "/messages"
+        }
+    ]
+}

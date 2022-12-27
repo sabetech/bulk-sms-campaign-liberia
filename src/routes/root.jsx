@@ -19,6 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
+import { Link, Outlet } from "react-router-dom";
+import Container from '@mui/material/Container';
+import sidebarItems from '../resources/SidebarItems.json';
 
 const drawerWidth = 240;
 
@@ -129,26 +132,29 @@ export default function Root() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Dashboard', 'Send Message', 'Send Voice', 'Sent Messages'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+          {sidebarItems.Menu.map((item, index) => (
+            <ListItem key={item.key} disablePadding sx={{ display: 'block' }}>
+              <Link to={item.path}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
+                
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>
@@ -178,9 +184,14 @@ export default function Root() {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1}}>
         <DrawerHeader />
-        <Typography paragraph>Ping Here</Typography>
+        {/* <Box sx={{ marginLeft: 10}}> */}
+        <Container maxWidth="md">
+          <Typography variant="h1" gutterBottom>Contacts</Typography>
+          <Outlet />
+        </Container>
+        {/* </Box> */}
        </Box>
     </Box>
   );
