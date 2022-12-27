@@ -4,8 +4,6 @@ import ContactsTable from "../../components/TableList";
 
 export default function Contacts() {
     return(
-        
         <ContactsTable />
-        
     );
 }

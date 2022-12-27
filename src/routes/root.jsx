@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -93,6 +93,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Root() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [pageTitle, setPageTitle] = useState("Dashboard");
+
+  const handleSideBarButtonClick = (pageTitle) => {
+    setPageTitle(pageTitle);
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,7 +125,7 @@ export default function Root() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Campaign Mobile
+            {pageTitle}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -141,8 +146,8 @@ export default function Root() {
                     justifyContent: open ? 'initial' : 'center',
                     px: 2.5,
                   }}
+                  onClick={() => handleSideBarButtonClick(item.name)}
                 >
-                
                   <ListItemIcon
                     sx={{
                       minWidth: 0,
@@ -186,12 +191,11 @@ export default function Root() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1}}>
         <DrawerHeader />
-        {/* <Box sx={{ marginLeft: 10}}> */}
+        
         <Container maxWidth="md">
-          <Typography variant="h1" gutterBottom>Contacts</Typography>
           <Outlet />
         </Container>
-        {/* </Box> */}
+        
        </Box>
     </Box>
   );

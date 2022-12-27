@@ -23,8 +23,12 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
+        path: "/",
+        element: <Home />
+      },
+      {
         path: "/dashboard",
-        element: <Home />,
+        element: <Home />
       },
       {
         path: "/send-message",
