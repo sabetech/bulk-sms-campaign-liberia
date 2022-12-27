@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -19,6 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
+import { Link, Outlet } from "react-router-dom";
+import Container from '@mui/material/Container';
+import sidebarItems from '../resources/SidebarItems.json';
 
 const drawerWidth = 240;
 
@@ -90,6 +93,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Root() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [pageTitle, setPageTitle] = useState("Dashboard");
+
+  const handleSideBarButtonClick = (pageTitle) => {
+    setPageTitle(pageTitle);
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -117,7 +125,7 @@ export default function Root() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Campaign Mobile
+            {pageTitle}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -129,26 +137,29 @@ export default function Root() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Dashboard', 'Send Message', 'Send Voice', 'Sent Messages'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+          {sidebarItems.Menu.map((item, index) => (
+            <ListItem key={item.key} disablePadding sx={{ display: 'block' }}>
+              <Link to={item.path}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
+                  onClick={() => handleSideBarButtonClick(item.name)}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>
@@ -178,9 +189,13 @@ export default function Root() {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1}}>
         <DrawerHeader />
-        <Typography paragraph>Ping Here</Typography>
+        
+        <Container maxWidth="md">
+          <Outlet />
+        </Container>
+        
        </Box>
     </Box>
   );
