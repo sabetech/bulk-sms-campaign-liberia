@@ -16,6 +16,7 @@ import Contacts from './pages/main/Contacts';
 import SendMessage from './pages/main/SendMessage';
 import SentMesssages from './pages/main/SentMessages';
 import Content from './pages/main/Content';
+import Groups from './pages/main/Groups';
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,12 @@ const router = createBrowserRouter([
       {
         path:"/messages",
         element: <Content />
-      }
+      },
+      {
+        path:"/groups",
+        element: <Groups />
+      },
+      
     ],
   },
   {

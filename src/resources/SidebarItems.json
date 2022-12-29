@@ -29,6 +29,12 @@
             "name": "Content",
             "icon": "Icon",
             "path": "/messages"
+        },
+        {
+            "key": "6",
+            "name": "Groups",
+            "icon": "Icon",
+            "path": "/groups"
         }
     ]
 }
