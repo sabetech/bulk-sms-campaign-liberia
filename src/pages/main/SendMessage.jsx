@@ -8,6 +8,14 @@ import { Label } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 
 export default function SendMessage() {
+
+    const handleSendSMS = () => {
+        console.log("Sending SMS");
+        
+
+    }
+
+
     return(
         <Box sx={{position: 'absolute', top: '15%', padding: 5, width: '90%'}}>
             <Stack sx={{flexDirection: 'column'}}>
@@ -27,7 +35,7 @@ export default function SendMessage() {
                     defaultValue="Your Message goes here"
                     sx={{width: '60%'}}
                 />
-                <Button variant="contained" size="large" sx={{ marginTop: 2, width: '10%'}}>
+                <Button onClick={() => handleSendSMS()}  variant="contained" size="large" sx={{ marginTop: 2, width: '10%'}}>
                     Send
                 </Button>
             </Stack>
