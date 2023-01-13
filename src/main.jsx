@@ -17,6 +17,9 @@ import SendMessage from './pages/main/SendMessage';
 import SentMesssages from './pages/main/SentMessages';
 import Content from './pages/main/Content';
 import Groups from './pages/main/Groups';
+import { Provider } from 'react-redux';
+import {store, persistor} from './redux/configureStore';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +65,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
 )

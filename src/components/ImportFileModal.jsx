@@ -7,11 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as XLSX from 'xlsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadContacts } from '../redux/campaign_slice';
 
 export default function ImportFileFormDialog({open, setOpen}) {
   const [selectedFile, setSelectedFile] = React.useState();
   const [uploadedFile, setUploadedFile] = React.useState("No File uploaded");
-  const [contacts, setContacts] = React.useState([]);
+  const dispatch = useDispatch();
 
   const onFileChange = event => {
      
@@ -38,18 +40,37 @@ export default function ImportFileFormDialog({open, setOpen}) {
       });
       workbook.SheetNames.forEach(sheet => {
         let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
-        setContacts(rowObject);
+        const transformedData = transformData(rowObject);
+        uploadData(transformedData);
       })
     };
     reader.readAsBinaryString(file);
   }
 
-  React.useEffect(() => {
-    console.log("CONTACTS:::", contacts);
+  const transformData = (data) => {
+    console.log("CONTACT:::", data);
+    
+    const transformedData = data.map(contact => ({  
+      firstName: contact.FirstName,
+      lastName: contact.LastName,
+      contactInformation: {
+        phone: [{number: contact.Phone}]
+      },
+      gender: contact.Sex.toUpperCase(),
+      customAttributes: {
+        age: contact.Age
+      }
+      })
+    );
 
-    //Send Contacts Array to server
+    return {
+      people: transformedData
+    }
+  }
 
-  }, [contacts]);
+  const uploadData = (data) => {
+    dispatch(uploadContacts(data));
+  }
 
   return (
     <div>
