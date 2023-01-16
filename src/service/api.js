@@ -23,23 +23,39 @@ export const sendMessage = async (message, destinations) => {
         return response.data;
     }catch (error) {
         console.log(error);
-        throw new Error(`Source:::sendMessage(): API->Error: ${e.message()}`);
+        throw new Error(`Source:::sendMessage(): API->Error: ${error.message()}`);
     }
 }
 
 export const createPeople = async (people) => {
+    console.log("PEOPLE HERE:::", people)
     try {
-        const response = await axios.post(`${BASEURL}/people/2/persons/batch`, {
+        const response = await axios.post(`https://${BASEURL}/people/2/persons/batch`, people,
+        {
             headers: {
                 "Authorization": `App ${TOKEN}`,
                 "Content-Type": "application/json",
                 "Accept": "application/json"
-            },
-            body: people
+            }
         });
         return response.data;
     }catch (error) {
         console.log(error);
-        throw new Error(`Source:::createPeople(): API->Error: ${e.message()}`);
+        throw new Error(`Source:::createPeople(): API->Error: ${error.message}`);
+    }
+}
+
+const getPeople = async () => {
+    try {
+        const response = await axios.get(`${BASEURL}/people/2/persons`, {
+            headers: {
+                "Authorization": `App ${TOKEN}`,
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        })
+    }catch ( error ){
+        console.log( err );
+        throw new Error(`Source:::getPeople(): API->Error: ${error.message()}`);
     }
 }

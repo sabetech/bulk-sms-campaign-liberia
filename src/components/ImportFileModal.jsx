@@ -8,12 +8,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as XLSX from 'xlsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadContacts } from '../redux/campaign_slice';
+import { uploadContacts, getStatus } from '../redux/campaign_slice';
+import { appStates } from '../resources/constants';
 
 export default function ImportFileFormDialog({open, setOpen}) {
   const [selectedFile, setSelectedFile] = React.useState();
   const [uploadedFile, setUploadedFile] = React.useState("No File uploaded");
   const dispatch = useDispatch();
+  const status = useSelector(getStatus);
+
+  
+  React.useEffect(() => {
+    console.log("STATUS:::", status);
+  }, [getStatus])
 
   const onFileChange = event => {
      
@@ -29,7 +36,6 @@ export default function ImportFileFormDialog({open, setOpen}) {
 
   const handleFileUpload = (e) => {
     e.preventDefault();
-    console.log("FILE IS HERE:::", selectedFile);
 
     const file = selectedFile;
     const reader = new FileReader();
@@ -48,7 +54,6 @@ export default function ImportFileFormDialog({open, setOpen}) {
   }
 
   const transformData = (data) => {
-    console.log("CONTACT:::", data);
     
     const transformedData = data.map(contact => ({  
       firstName: contact.FirstName,
@@ -56,7 +61,6 @@ export default function ImportFileFormDialog({open, setOpen}) {
       contactInformation: {
         phone: [{number: contact.Phone}]
       },
-      gender: contact.Sex.toUpperCase(),
       customAttributes: {
         age: contact.Age
       }
@@ -82,7 +86,7 @@ export default function ImportFileFormDialog({open, setOpen}) {
               To Import contacts, import a spreadsheet with fields. Download this template to begin
             </DialogContentText>
             <Button variant="contained" component="label">
-              Upload
+              {status === appStates.UPLOADING_SPREADSHEET ? "Loading ..." : "Upload"}
               <input onChange={onFileChange} hidden accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" type="file" />
             </Button>
             <span style={{marginLeft: 10}}>{uploadedFile}</span>

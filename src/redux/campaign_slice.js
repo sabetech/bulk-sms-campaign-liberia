@@ -11,13 +11,17 @@ export const uploadContacts = createAsyncThunk('people/uploadPeopleToInfoBip', a
         const response = await createPeople(people);
         return response.data;
     }catch ( err ) {
-        console.log(err);
-        return rejectWithValue(err.message);
+        console.log("ERROR IN SLICE:::", err);
+        return rejectWithValue(err.message());
     }
 });
 
 export const getPeopleFromInfoBip = createAsyncThunk('people/getPeopleFromInfoBip', async ({ rejectWithValue } ) => {   
-
+    try{
+        const response = await getPeople();
+    }catch( err ) {
+        return rejectWithValue(err.message);
+    }
 });
 
 export const campaignSlice = createSlice({
@@ -45,18 +49,21 @@ export const campaignSlice = createSlice({
                 state.status = appStates.IDLE;
                 state.error = action.payload;
             })
-            .addCase(uploadPeopleToInfobip.pending, (state) => {
-                state.status = appStates.LOADING;
+            .addCase(uploadContacts.pending, (state) => {
+                console.log("UPLOADING >...");
+                state.status = appStates.UPLOADING_SPREADSHEET;
             })
-            .addCase(uploadPeopleToInfobip.fulfilled, (state, action) => {
+            .addCase(uploadContacts.fulfilled, (state, action) => {
                 state.status = appStates.IDLE;
             })
-            .addCase(uploadPeopleToInfobip.rejected, (state, action) => {
+            .addCase(uploadContacts.rejected, (state, action) => {
                 state.status = appStates.IDLE;
+                console.log("BAD :::", action.payload)
                 state.error = action.payload;
             })
         }
     }
 });
 
+export const getStatus = (state) => state?.campaignReducer?.status
 export default campaignSlice.reducer;

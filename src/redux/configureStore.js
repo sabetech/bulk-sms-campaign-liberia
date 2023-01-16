@@ -18,7 +18,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, campaign)
 
 export const store = configureStore({
-  reducer: {vf:persistedReducer},
+  reducer: {campaignReducer:persistedReducer},
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
