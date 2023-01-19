@@ -1,45 +1,33 @@
-import React from 'react';
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from '@mui/material/Button';
-import CustomizedTagInput from '../../components/CustomizedTagInput';
-import { Label } from '@mui/icons-material';
-import { Typography } from '@mui/material';
+import * as React from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import { Stack } from '@mui/system';
+import SendMessageSMS from './SendMessageSms';
 
 export default function SendMessage() {
+  const [value, setValue] = React.useState('sms');
 
-    const handleSendSMS = () => {
-        console.log("Sending SMS");
-        
+  
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
-    }
-
-
-    return(
-        <Box sx={{position: 'absolute', top: '15%', padding: 5, width: '90%'}}>
-            <Stack sx={{flexDirection: 'column'}}>
-                <CustomizedTagInput />
-                <Typography sx={{marginTop: 10, marginBottom: 1}}>Message Subject</Typography>
-                <TextField  
-                    id="message-subject"
-                    label="Subject"
-                    sx={{width: '60%'}}
-                />
-                <Typography sx={{marginTop: 3, marginBottom: 1}}>Message</Typography>
-                <TextField
-                    id="message-content"
-                    label="Type Your Message"
-                    multiline
-                    rows={4}
-                    defaultValue="Your Message goes here"
-                    sx={{width: '60%'}}
-                />
-                <Button onClick={() => handleSendSMS()}  variant="contained" size="large" sx={{ marginTop: 2, width: '10%'}}>
-                    Send
-                </Button>
-            </Stack>
-        </Box>
-    ); 
+  return (
+    <Box sx={{ width: '100%', position: 'absolute', top: 80 }}>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        textColor="secondary"
+        indicatorColor="secondary"
+        aria-label="secondary tabs example"
+      >
+        <Tab value="sms" label="SMS" />
+        <Tab value="voice" label="Voice" />
+      </Tabs>
+      <Stack>
+        {value === 'sms' && <SendMessageSMS />}        
+      </Stack>
+    </Box>
+  );
 }
-
