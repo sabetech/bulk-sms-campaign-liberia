@@ -32,11 +32,13 @@ export default function SendMessage() {
         textColor="secondary"
         indicatorColor="secondary"
         aria-label="secondary tabs example"
+        sx={{marginTop: 2}}
       >
         <Tab value="sms" label="SMS" />
         <Tab value="voice" label="Voice" />
       </Tabs>
-      <Stack>
+
+      <Stack sx={{marginTop: 2}}>
         {value === 'voice' && <SendMessageVoice /> }       
         {value === 'sms' && <SendMessageSMS />} 
       </Stack>

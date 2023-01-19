@@ -16,7 +16,6 @@ export default function SendMessageSMS() {
     return(
         <Box sx={{position: 'absolute', width: '90%'}}>
             <Stack sx={{flexDirection: 'column'}}>
-                <Typography sx={{ marginBottom: 1}}>Message</Typography>
                 <TextField
                     id="message-content"
                     label="Type Your Message"

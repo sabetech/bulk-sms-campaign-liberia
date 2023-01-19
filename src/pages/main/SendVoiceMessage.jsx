@@ -18,7 +18,6 @@ export default function SendMessageVoice() {
     return(
         <Box sx={{position: 'absolute', width: '90%'}}>
             <Stack sx={{flexDirection: 'column'}}>
-                <Typography sx={{marginBottom: 1}}>Message</Typography>
                 <RecordView />
                 <Button onClick={() => handleSendVoice()}  variant="contained" size="large" sx={{ marginTop: 2, width: '30%'}}>
                     Send Voice Call
