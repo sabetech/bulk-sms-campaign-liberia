@@ -11,22 +11,12 @@ export default function SendMessageSMS() {
 
     const handleSendSMS = () => {
         console.log("Sending SMS");
-        
-
     }
 
-
     return(
-        <Box sx={{position: 'absolute', padding: 5, width: '90%'}}>
+        <Box sx={{position: 'absolute', width: '90%'}}>
             <Stack sx={{flexDirection: 'column'}}>
-                <CustomizedTagInput />
-                <Typography sx={{marginTop: 10, marginBottom: 1}}>Message Subject</Typography>
-                <TextField  
-                    id="message-subject"
-                    label="Subject"
-                    sx={{width: '60%'}}
-                />
-                <Typography sx={{marginTop: 3, marginBottom: 1}}>Message</Typography>
+                <Typography sx={{ marginBottom: 1}}>Message</Typography>
                 <TextField
                     id="message-content"
                     label="Type Your Message"
@@ -35,8 +25,8 @@ export default function SendMessageSMS() {
                     defaultValue="Your Message goes here"
                     sx={{width: '60%'}}
                 />
-                <Button onClick={() => handleSendSMS()}  variant="contained" size="large" sx={{ marginTop: 2, width: '10%'}}>
-                    Send
+                <Button onClick={() => handleSendSMS()}  variant="contained" size="large" sx={{ marginTop: 2, width: '20%'}}>
+                    Send SMS
                 </Button>
             </Stack>
         </Box>

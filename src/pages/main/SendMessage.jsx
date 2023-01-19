@@ -3,7 +3,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Stack } from '@mui/system';
+import CustomizedTagInput from '../../components/CustomizedTagInput';
 import SendMessageSMS from './SendMessageSms';
+import SendMessageVoice from './SendVoiceMessage';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 export default function SendMessage() {
   const [value, setValue] = React.useState('sms');
@@ -15,6 +19,13 @@ export default function SendMessage() {
 
   return (
     <Box sx={{ width: '100%', position: 'absolute', top: 80 }}>
+        <CustomizedTagInput />
+        <Typography sx={{marginBottom: 1}}>Message Subject</Typography>
+        <TextField  
+            id="message-subject"
+            label="Subject"
+            sx={{width: '60%'}}
+        />
       <Tabs
         value={value}
         onChange={handleChange}
@@ -26,7 +37,8 @@ export default function SendMessage() {
         <Tab value="voice" label="Voice" />
       </Tabs>
       <Stack>
-        {value === 'sms' && <SendMessageSMS />}        
+        {value === 'voice' && <SendMessageVoice /> }       
+        {value === 'sms' && <SendMessageSMS />} 
       </Stack>
     </Box>
   );
