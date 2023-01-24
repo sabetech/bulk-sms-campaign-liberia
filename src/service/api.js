@@ -1,6 +1,7 @@
 import axios from "axios";
 const BASEURL = import.meta.env.VITE_INFOBIP_BASEURL
 const TOKEN = import.meta.env.VITE_INFOBIP_TOKEN;
+const LARAVEL_BASEURL = import.meta.env.VITE_LARAVEL_BASEURL;
 
 export const sendMessage = async (message, destinations) => {
     try {
@@ -27,7 +28,7 @@ export const sendMessage = async (message, destinations) => {
     }
 }
 
-export const createPeople = async (people) => {
+export const createPeopleInfoBip = async (people) => {
     console.log("PEOPLE HERE:::", people)
     try {
         const response = await axios.post(`https://${BASEURL}/people/2/persons/batch`, people,
@@ -44,6 +45,24 @@ export const createPeople = async (people) => {
         throw new Error(`Source:::createPeople(): API->Error: ${error.message}`);
     }
 }
+
+export const createPeopleAPI = async (people) => {
+    console.log("PEOPLE HERE FROM my API:::", people)
+    try {
+        const response = await axios.post(`http://${LARAVEL_BASEURL}/api/importContacts`, people,
+        {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        });
+        return response.data;
+    }catch (error) {
+        console.log(error);
+        throw new Error(`Source:::createPeople(): API->Error: ${error.message}`);
+    }
+}
+
 
 const getPeople = async () => {
     try {

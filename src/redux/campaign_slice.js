@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { appStates } from '../resources/constants';
-import { createPeople } from '../service/api';
+import { createPeopleInfoBip } from '../service/api';
 
 export const sendSMSToGroup = createAsyncThunk('messaging/sendSMSToGroup', async (token, { rejectWithValue } ) => {
 
@@ -8,7 +8,7 @@ export const sendSMSToGroup = createAsyncThunk('messaging/sendSMSToGroup', async
 
 export const uploadContacts = createAsyncThunk('people/uploadPeopleToInfoBip', async (people, { rejectWithValue } ) => {
     try{
-        const response = await createPeople(people);
+        const response = await createPeopleInfoBip(people);
         return response.data;
     }catch ( err ) {
         console.log("ERROR IN SLICE:::", err);

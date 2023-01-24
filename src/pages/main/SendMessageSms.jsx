@@ -3,9 +3,6 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
-import CustomizedTagInput from '../../components/CustomizedTagInput';
-import { Label } from '@mui/icons-material';
-import { Typography } from '@mui/material';
 
 export default function SendMessageSMS() {
 
