@@ -12,13 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Image from 'mui-image';
+
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Liberia SMS
+        Liberia SMS{" "}
       </Link>
       {new Date().getFullYear()}
     </Typography>
@@ -39,14 +41,38 @@ export default function Login() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <Image src="./welma1.jpeg" 
+          height="100%"
+          width="100%"
+          fit="cover"
+          duration={1000}
+          easing="ease-in"
+          showLoading={ true }
+          errorIcon={ true }
+          shift={null}
+          style={{position: 'absolute', top: 0, left: 0, zIndex: -1}}
+          
+      />
+      {/* <Container component="main" > */}
+        <Box sx={{display: 'flex'}}>
         <Box
           sx={{
             marginTop: 8,
+            marginLeft: 10,
+            marginRight: 10,
+            alignSelf: 'center',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            backgroundColor: 'white',
+            borderWidth: 1,
+            borderRadius: 2,
+            // position: 'absolute',
+            // top: 15,
+            padding: 10,
+            width: 400,
+            justifyContent: 'center'
+
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -55,7 +81,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8 }}>
             <TextField
               margin="normal"
               required
@@ -101,9 +127,11 @@ export default function Login() {
               </Grid>
             </Grid>
           </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
+        
+        </Box>
+      {/* </Container> */}
     </ThemeProvider>
   );
 }

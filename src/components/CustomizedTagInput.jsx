@@ -180,7 +180,7 @@ export default function CustomizedTagInput() {
     return (
       <Root>
         <div {...getRootProps()}>
-          <Label {...getInputLabelProps()}>Select Recipients For your Message</Label>
+          <Label {...getInputLabelProps()}>Select Recipients For your Voice</Label>
           <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
             {value.map((option, index) => (
               <StyledTag label={option.title} {...getTagProps({ index })} />
